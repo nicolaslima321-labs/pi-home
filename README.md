@@ -1,6 +1,12 @@
-# pi-home (pi-home)
+# Pi-Home
+ 
+Pi-Home is a semiannual project in the discipline of Computer Engineering Projects II, developed with JavaScript.
 
-Pi Home
+PI-Home is an IoT product, it disposes an web interface that allow to control the ligthning of your own house.
+
+The web interface comunicate with an Raspberry PI 4, through an real time database of Google (Firebase/Firestore), that will allow us to send the control to Raspberry PI promoves eletric signals to the switchs of the ligths of the house.
+
+---
 
 ## Install the dependencies
 ```bash

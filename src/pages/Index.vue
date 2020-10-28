@@ -10,40 +10,41 @@
         <q-card-section>
           <q-btn-toggle
           v-model="modelRoom"
+          v-on:click="modelRoomChange"
           push
           rounded
           glossy
           toggle-color="dark"
           :options="[
-            {value: 'one', slot: 'one'},
-            {value: 'two', slot: 'two'},
-            {value: 'three', slot: 'three'}
+            {value: 'guests', slot: 'guests'},
+            {value: 'principal', slot: 'principal'},
+            {value: 'childrens', slot: 'childrens'}
           ]"
           >
-          <template v-slot:one>
+          <template v-slot:guests>
             <div class="row items-center no-wrap">
               <div class="text-center">
                 Quarto<br>Hospedes
               </div>
-              <q-icon right :name="modelRoom == 'one' ? 'flash_one' : 'flash_off'" />
+              <q-icon right :name="modelRoom == 'guests' ? 'flash_one' : 'flash_off'" />
             </div>
           </template>
 
-          <template v-slot:two>
+          <template v-slot:principal>
             <div class="row items-center no-wrap">
               <div class="text-center">
                 Quarto<br>Principal
               </div>
-              <q-icon right :name="modelRoom == 'two' ? 'flash_one' : 'flash_off'" />
+              <q-icon right :name="modelRoom == 'principal' ? 'flash_one' : 'flash_off'" />
             </div>
           </template>
 
-          <template v-slot:three>
+          <template v-slot:childrens>
             <div class="row items-center no-wrap">
               <div class="text-center">
                 Quarto<br>Criança
               </div>
-              <q-icon right :name="modelRoom == 'three' ? 'flash_one' : 'flash_off'" />
+              <q-icon right :name="modelRoom == 'childrens' ? 'flash_one' : 'flash_off'" />
             </div>
           </template>
         </q-btn-toggle>
@@ -60,40 +61,41 @@
         <q-card-section>
           <q-btn-toggle
           v-model="modelHall"
+          v-on:click="modelRoomChange"
           push
           rounded
           glossy
           toggle-color="dark"
           :options="[
-            {value: 'one', slot: 'one'},
-            {value: 'two', slot: 'two'},
-            {value: 'three', slot: 'three'}
+            {value: 'work', slot: 'work'},
+            {value: 'principal', slot: 'principal'},
+            {value: 'hall', slot: 'hall'}
           ]"
           >
-          <template v-slot:one>
+          <template v-slot:work>
             <div class="row items-center no-wrap">
               <div class="text-center">
                 Escritório<br>Trabalho
               </div>
-              <q-icon right :name="modelHall == 'one' ? 'flash_one' : 'flash_off'" />
+              <q-icon right :name="modelHall == 'work' ? 'flash_one' : 'flash_off'" />
             </div>
           </template>
 
-          <template v-slot:two>
+          <template v-slot:principal>
             <div class="row items-center no-wrap">
               <div class="text-center">
                 Escritório<br>Principal
               </div>
-              <q-icon right :name="modelHall == 'two' ? 'flash_one' : 'flash_off'" />
+              <q-icon right :name="modelHall == 'principal' ? 'flash_one' : 'flash_off'" />
             </div>
           </template>
 
-          <template v-slot:three>
+          <template v-slot:hall>
             <div class="row items-center no-wrap">
               <div class="text-center">
                 Sala<br>Estar
               </div>
-              <q-icon right :name="modelHall == 'three' ? 'flash_one' : 'flash_off'" />
+              <q-icon right :name="modelHall == 'hall' ? 'flash_one' : 'flash_off'" />
             </div>
           </template>
         </q-btn-toggle>
@@ -103,13 +105,26 @@
 </template>
 
 <script>
+import db from '../handler/firebase.js'
+
 export default {
   name: 'PageIndex',
 
   data () {
     return {
-      modelRoom: 'two',
-      modelHall: 'two'
+      modelRoom: 'principal',
+      modelHall: 'principal'
+    }
+  },
+
+  methods: {
+    modelRoomChange () {
+      console.log('im been here')
+
+      db.collection('pi-home').doc('rpBFRAGWWrvkcHUK36L6')
+        .set({
+          principal_room: this.modelRoom === 'principal'
+        })
     }
   }
 }
